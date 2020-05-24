@@ -75,8 +75,9 @@ def extract_strings(lsb_file, csv_file, encoding, overwrite, append):
     csv_data = []
 
     for c in lsb.commands:
-        if c.type == CommandType.Calc:
-            for s in c.args["Calc"]["entries"]:
+        calc = c.get("Calc")
+        if calc:
+            for s in calc["entries"]:
                 op = s["operands"][0]
                 if op["type"] == "Str":
                     csv_data.append(["pylm:string:{}:{}:{}".format(lsb_file, c.LineNo, s["name"]), None, c, op["value"]])

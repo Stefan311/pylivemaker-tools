@@ -77,8 +77,9 @@ def insert_strings(lsb_file, csv_file, encoding, no_backup):
     translated = 0
 
     for c in lsb.commands:
-        if c.type == CommandType.Calc:
-            for s in c.args["Calc"]["entries"]:
+        calc = c.get("Calc")
+        if calc:
+            for s in calc["entries"]:
                 op = s["operands"][0]
                 if op["type"] == "Str":
                     for line in csv_data:
